@@ -1,6 +1,6 @@
 .add-note-button {
   position: fixed;
-  bottom: 24px;
+  bottom: 70px;
   right: 24px;
   z-index: 1000;
   background-color: yellowgreen;
