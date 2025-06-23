@@ -1,0 +1,30 @@
+<app-loading [show]="loading"></app-loading>
+
+<div class="center-container">
+  <input
+    matInput
+    [ngModel]="searchText"
+    (ngModelChange)="onSearchInput($event)"
+    placeholder="Search..."
+    class="search-input"
+  />
+</div>
+
+<div class="card-title">
+  <div class="scrollable-list">
+    <div class="keep-card">
+      <mat-card
+        *ngFor="let note of notes"
+        (click)="openNote(note.name)"
+        style="cursor: pointer"
+      >
+        <mat-card-content
+          class="card-content"
+          [ngStyle]="{ 'background-color': note.bgColor }"
+        >
+          {{ note.name }}
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

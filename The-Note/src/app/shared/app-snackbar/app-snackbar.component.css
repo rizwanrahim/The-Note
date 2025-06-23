@@ -1,0 +1,33 @@
+.custom-snackbar {
+  display: flex;
+  align-items: center;
+  background-color: #000;
+  padding: 12px 16px;
+  border-radius: 4px;
+}
+
+.message {
+  flex: 1;
+  font-size: 14px;
+  color: white;
+}
+
+.tick {
+  font-size: 20px;
+  margin-left: 12px;
+}
+
+.success {
+  color: #4caf50; /* green check */
+}
+
+.error {
+  color: #f44336; /* red cross */
+}
+
+::ng-deep .mat-mdc-snackbar-surface {
+  background-color: #000 !important;
+  color: white !important;
+  border-radius: 4px !important;
+  max-height: 50px !important;
+}

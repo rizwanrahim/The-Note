@@ -1,0 +1,11 @@
+<app-toolbar />
+<div *ngIf="SignedIn | async">
+  <div *ngIf="!(InDetail | async)">
+    <note-list (noteId)="onNoteSelected($event)" />
+    <button mat-button class="add-note-button" (click)="onSave()">
+      <mat-icon>add</mat-icon>
+      Add Note
+    </button>
+  </div>
+  <div *ngIf="InDetail | async"><note [noteId]="noteId" /></div>
+</div>

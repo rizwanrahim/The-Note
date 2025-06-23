@@ -1,0 +1,19 @@
+<mat-toolbar class="toolbar" color="primary">
+  <div *ngIf="profileName; else signInBlock" class="toolbar-content">
+    <button
+      mat-icon-button
+      aria-label="Back"
+      *ngIf="InDetail | async"
+      (click)="onBack()"
+    >
+      <mat-icon class="back-icon">arrow_back</mat-icon>
+    </button>
+    <span class="greeting">Hi, {{ profileName?.split(" ")[0] }}</span>
+  </div>
+
+  <ng-template #signInBlock>
+    <button mat-button class="sign-in-button" (click)="onSignIn()">
+      Sign In
+    </button>
+  </ng-template>
+</mat-toolbar>
