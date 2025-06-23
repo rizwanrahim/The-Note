@@ -94,10 +94,14 @@ export class NoteService {
     }
   }
 
-  async saveNote(fileName: string, fileContent: string): Promise<any> {
+  async saveNote(
+    fileName: string,
+    fileContent: string,
+    newfile: boolean = false
+  ): Promise<any> {
     var oldFileId = await this.getExistingFileName(fileName);
 
-    if (oldFileId) {
+    if (oldFileId && newfile) {
       throw new Error(`Note already exists.`);
     }
     const query = `name='${fileName}' and '${this.FOLDER_ID}' in parents and trashed=false`;

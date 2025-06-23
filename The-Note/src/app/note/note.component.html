@@ -31,7 +31,7 @@
       </button>
       <button
         mat-button
-        [disabled]="!(noteId && noteId !== '')"
+        [disabled]="!(noteId && noteId !== '' && !newFile)"
         (click)="onDelete()"
       >
         <mat-icon>delete</mat-icon>

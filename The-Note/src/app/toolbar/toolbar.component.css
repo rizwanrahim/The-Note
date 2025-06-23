@@ -14,9 +14,9 @@
 }
 
 .sign-in-button {
-  color: black;
+  color: black !important;
 }
 
 .back-icon {
-  color: black;
+  color: black !important;
 }

@@ -143,7 +143,8 @@ export class NoteComponent {
     if (this.newFile) {
       var response = await this.note.saveNote(
         this.noteId,
-        this.noteContent || ''
+        this.noteContent || '',
+        this.newFile
       );
       if (response.status === 200) {
         this.originalNoteId = this.noteId;
