@@ -1,0 +1,22 @@
+.toolbar {
+  background-color: #d7e3ff;
+}
+
+.toolbar-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.greeting {
+  font-size: 1.2rem;
+  color: black; /* or black depending on theme */
+}
+
+.sign-in-button {
+  color: black;
+}
+
+.back-icon {
+  color: black;
+}
