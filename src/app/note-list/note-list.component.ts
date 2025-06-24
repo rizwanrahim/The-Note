@@ -9,7 +9,7 @@ import { NoteService } from '../services/note.service';
 import { CommonModule, NgFor, NgStyle } from '@angular/common';
 import { AppLoadingComponent } from '../shared/app-loading/app-loading.component';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
-import { FormsModule, NgModel } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'note-list',
@@ -39,21 +39,28 @@ export class NoteListComponent {
 
   async ngOnInit() {
     try {
-      this.onSearchTextChanged();
-      await this.note.saveFolder();
-
-      const fetchedNotes = await this.note.fetchNotes();
-      const colors = this.getDistinctColors(fetchedNotes.length);
-      if (fetchedNotes.length > 0) {
-        this.notes = fetchedNotes.map((note: any, index: number) => ({
-          ...note,
-          bgColor: colors[index],
-        }));
-      }
+      this.note.refreshNotes$.subscribe(() => {
+        this.fetchNotes();
+      });
+      await this.fetchNotes();
 
       this.loading = false;
     } catch (err) {
       console.error('Error creating folder or fetching notes:', err);
+    }
+  }
+
+  private async fetchNotes() {
+    this.onSearchTextChanged();
+    await this.note.saveFolder();
+
+    const fetchedNotes = await this.note.fetchNotes();
+    const colors = this.getDistinctColors(fetchedNotes.length);
+    if (fetchedNotes.length > 0) {
+      this.notes = fetchedNotes.map((note: any, index: number) => ({
+        ...note,
+        bgColor: colors[index],
+      }));
     }
   }
 

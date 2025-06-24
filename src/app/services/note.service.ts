@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { AppConstants } from '../app-constants';
 
 declare const google: any;
@@ -11,6 +11,12 @@ export class NoteService {
 
   public SIGNED_IN = new BehaviorSubject<boolean>(false);
   public IN_DETAILED = new BehaviorSubject<boolean>(false);
+  private refreshNotesSource = new Subject<void>();
+  refreshNotes$ = this.refreshNotesSource.asObservable();
+
+  triggerRefresh() {
+    this.refreshNotesSource.next();
+  }
 
   private TOKEN = localStorage.getItem(AppConstants.TOKEN);
   private FOLDER_ID = localStorage.getItem(AppConstants.DEFAULT_FOLDER_ID);
@@ -41,7 +47,11 @@ export class NoteService {
         }
       }
 
-      const query = `mimeType='application/vnd.google-apps.folder' and name='${AppConstants.FOLDER_NAME}' and trashed=false`;
+      const query = `mimeType='application/vnd.google-apps.folder' and name='${
+        AppConstants.ENVIRONMENT === 'DEV'
+          ? AppConstants.DEV_FOLDER_NAME
+          : AppConstants.PROD_FOLDER_NAME
+      }' and trashed=false`;
 
       const listRes = await fetch(
         `${AppConstants.DRIVE_URL}?q=${encodeURIComponent(
@@ -75,7 +85,10 @@ export class NoteService {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name: AppConstants.FOLDER_NAME,
+          name:
+            AppConstants.ENVIRONMENT === 'DEV'
+              ? AppConstants.DEV_FOLDER_NAME
+              : AppConstants.PROD_FOLDER_NAME,
           mimeType: 'application/vnd.google-apps.folder',
         }),
       });
