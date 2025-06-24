@@ -93,6 +93,7 @@ export class NoteComponent {
     if (!this.noteId) {
       this.contentChange = true;
       this.noteContent = result.value;
+      console.log(`Note ID ${this.noteId}`);
       this.refreshButtonDisabled();
       return;
     }
@@ -198,7 +199,10 @@ export class NoteComponent {
   }
 
   refreshButtonDisabled() {
-    this.disabledSave = !(this.noteIdChange || this.contentChange);
+    this.disabledSave = !(
+      this.noteId &&
+      (this.noteIdChange || this.contentChange)
+    );
   }
 
   async onDelete() {
