@@ -1,1 +1,3 @@
 ng build --output-path=docs --base-href=""
+move .\docs\browser\* .\docs\ 
+rm .\docs\browser\
