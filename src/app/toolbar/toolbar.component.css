@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  width: 100%;
 }
 
 .greeting {
@@ -19,4 +20,16 @@
 
 .back-icon {
   color: black !important;
+}
+
+.version {
+  margin-left: auto;
+  color: black;
+  font-size: small;
+}
+
+.signin-block {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
