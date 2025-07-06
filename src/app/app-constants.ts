@@ -27,5 +27,5 @@ export class AppConstants {
     '#c8e6c9',
     '#ffe082',
   ];
-  public static readonly ENVIRONMENT: 'DEV' | 'PROD' = 'DEV';
+  public static readonly ENVIRONMENT: 'DEV' | 'PROD' = 'PROD';
 }

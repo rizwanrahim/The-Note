@@ -1,0 +1,81 @@
+{
+  "configVersion": 1,
+  "timestamp": 1751823107445,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/favicon.ico",
+        "/index.html",
+        "/main-GJMFNAVN.js",
+        "/manifest.webmanifest",
+        "/polyfills-B6TNHZQ6.js",
+        "/styles-75MNOPSW.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/icons/icon-128x128.png",
+        "/icons/icon-144x144.png",
+        "/icons/icon-152x152.png",
+        "/icons/icon-192x192.png",
+        "/icons/icon-384x384.png",
+        "/icons/icon-512x512.png",
+        "/icons/icon-72x72.png",
+        "/icons/icon-96x96.png",
+        "/loading.gif"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/favicon.ico": "25c69c6117f985ec8153c0fed5509a9bc37fc0d9",
+    "/icons/icon-128x128.png": "46197504a96ae7dc546153923f0e7b54840af2fb",
+    "/icons/icon-144x144.png": "3ebe9725adea31871b197908c972f7aefcd3f9ba",
+    "/icons/icon-152x152.png": "e18624a9c8968a78da2dd2e89e02734dcc1772bf",
+    "/icons/icon-192x192.png": "8e93ad3e5e0807b34a413fa4bf7a95fdd2f914ff",
+    "/icons/icon-384x384.png": "281bc9b3ce0842406e0d858aabc36808edb38486",
+    "/icons/icon-512x512.png": "06784a5b9d59c6801ba5f583a15469171f5bbe4a",
+    "/icons/icon-72x72.png": "f261376357245286a381cdeab02c816dfe4dc67d",
+    "/icons/icon-96x96.png": "356568664983e62fb413979694b62ad98c4d8745",
+    "/index.html": "3314b307963ae45f5ccb97c47e44769b481c37e9",
+    "/loading.gif": "46657a97859dab4556426816106048c69b1541ca",
+    "/main-GJMFNAVN.js": "286d67981347ad2efa044c0013600f64f3732c48",
+    "/manifest.webmanifest": "78804e41c0c3f2314587a829baf594f6db75e1c0",
+    "/polyfills-B6TNHZQ6.js": "bf76ac291d7f51c1139b7edcf86b359a30c08c64",
+    "/styles-75MNOPSW.css": "814ab0eb84ca9472bd97daea71b37059d2a964d8"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
