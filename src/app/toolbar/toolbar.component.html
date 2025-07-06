@@ -9,11 +9,15 @@
       <mat-icon class="back-icon">arrow_back</mat-icon>
     </button>
     <span class="greeting">Hi, {{ profileName?.split(" ")[0] }}</span>
+    <span class="version">v1.0.0</span>
   </div>
 
   <ng-template #signInBlock>
-    <button mat-button class="sign-in-button" (click)="onSignIn()">
-      Sign In
-    </button>
+    <div class="signInBlock">
+      <button mat-button class="sign-in-button" (click)="onSignIn()">
+        Sign In
+      </button>
+      <span class="version">v1.0.0</span>
+    </div>
   </ng-template>
 </mat-toolbar>
