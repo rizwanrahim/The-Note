@@ -22,7 +22,7 @@ import { AuthService } from '../services/auth.service';
 export class ToolbarComponent {
   profileName: any;
   inDetail: BehaviorSubject<boolean> | undefined;
-  version: string = '1.0.4';
+  version: string = '1.0.6';
   constructor(private noteService: NoteService, private auth: AuthService) {
     this.inDetail = this.noteService.IN_DETAILED;
   }
