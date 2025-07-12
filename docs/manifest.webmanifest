@@ -1,6 +1,6 @@
 {
-  "name": "The-Note",
-  "short_name": "The-Note",
+  "name": "TheNote",
+  "short_name": "TheNote",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
