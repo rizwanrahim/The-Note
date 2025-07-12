@@ -1,99 +1,91 @@
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { AppSnackbarComponent } from './../shared/app-snackbar/app-snackbar.component';
 import { Component, EventEmitter, Output } from '@angular/core';
+import { CommonModule, NgFor, NgStyle } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { NoteService } from '../services/note.service';
-import { CommonModule, NgFor, NgStyle } from '@angular/common';
-import { AppLoadingComponent } from '../shared/app-loading/app-loading.component';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
-import { FormsModule } from '@angular/forms';
+
+import { NoteService } from '../services/note.service';
+import { AppSnackbarComponent } from '../shared/app-snackbar/app-snackbar.component';
+import { AppLoadingComponent } from '../shared/app-loading/app-loading.component';
 
 @Component({
   selector: 'note-list',
+  standalone: true,
   imports: [
+    CommonModule,
+    FormsModule,
+    NgFor,
+    NgStyle,
     MatCardModule,
     MatDividerModule,
     MatListModule,
     MatIconModule,
-    NgFor,
-    NgStyle,
+    MatSnackBarModule,
     AppLoadingComponent,
-    CommonModule,
-    FormsModule,
   ],
   templateUrl: './note-list.component.html',
   styleUrl: './note-list.component.css',
 })
 export class NoteListComponent {
-  notes: any = [];
   @Output() noteId = new EventEmitter<string>();
-  loading: boolean = true;
-
+  notes: any[] = [];
+  loading = true;
   searchText = '';
   private searchSubject = new Subject<string>();
 
   constructor(private note: NoteService, private snackBar: MatSnackBar) {}
 
   async ngOnInit() {
-    try {
-      this.note.refreshNotes$.subscribe(() => {
-        this.fetchNotes();
-      });
-      await this.fetchNotes();
-
-      this.loading = false;
-    } catch (err) {
-      console.error('Error creating folder or fetching notes:', err);
-    }
+    this.note.refreshNotes$.subscribe(() => this.fetchNotes());
+    await this.fetchNotes();
+    this.initSearchListener();
+    this.loading = false;
   }
 
   private async fetchNotes() {
-    this.onSearchTextChanged();
     await this.note.saveFolder();
-
     const fetchedNotes = await this.note.fetchNotes();
-    const colors = this.getDistinctColors(fetchedNotes.length);
-    if (fetchedNotes.length > 0) {
-      this.notes = fetchedNotes.map((note: any, index: number) => ({
-        ...note,
-        bgColor: colors[index],
-      }));
-    }
+    this.notes = this.decorateAndSortNotes(fetchedNotes);
   }
 
-  getDistinctColors(count: number): string[] {
-    const colors: string[] = [];
+  private decorateAndSortNotes(notes: any[]): any[] {
+    const sortedNotes = [...notes].sort((a, b) => a.name.localeCompare(b.name));
+    const colors = this.getDistinctColors(sortedNotes.length);
+    return sortedNotes.map((note, index) => ({
+      ...note,
+      bgColor: colors[index],
+    }));
+  }
+
+  private getDistinctColors(count: number): string[] {
     const step = 360 / count;
-    for (let i = 0; i < count; i++) {
+    return Array.from({ length: count }, (_, i) => {
       const hue = Math.floor(i * step + Math.random() * (step / 2));
-      colors.push(`hsl(${hue}, 70%, 80%)`);
-    }
-    return colors;
+      return `hsl(${hue}, 70%, 80%)`;
+    });
   }
 
   openNote(noteId: string) {
     this.noteId.emit(noteId);
   }
 
-  onSearchInput(value: Event) {
-    this.searchSubject.next(String(value));
+  onSearchInput(value: string) {
+    this.searchSubject.next(value);
   }
 
-  private onSearchTextChanged() {
+  private initSearchListener() {
     this.searchSubject
       .pipe(debounceTime(400), distinctUntilChanged())
-      .subscribe(async (searchText) => {
+      .subscribe(async (text) => {
         try {
-          var files = await this.note.searchNotesInFolder(searchText);
-          if (files) {
-            const colors = this.getDistinctColors(files.length);
-            this.notes = files.map((file: any, index: number) => ({
-              ...file,
-              bgColor: colors[index],
-            }));
+          const files = await this.note.searchNotesInFolder(text);
+          if (files && files.length > 0) {
+            this.notes = this.decorateAndSortNotes(files);
           } else {
             this.notes = [];
             this.Notify('No notes found', 'info', 'error');
@@ -105,16 +97,12 @@ export class NoteListComponent {
   }
 
   private Notify(
-    message?: string,
-    icon?: string,
-    status?: 'success' | 'error'
+    message = 'Note saved successfully!',
+    icon = 'check',
+    status: 'success' | 'error' = 'success'
   ) {
     this.snackBar.openFromComponent(AppSnackbarComponent, {
-      data: {
-        message: message || 'Note saved successfully!',
-        icon: icon || 'check',
-        status: status || 'success',
-      },
+      data: { message, icon, status },
       panelClass: 'custom-snackbar-panel',
       duration: 3000,
       horizontalPosition: 'right',

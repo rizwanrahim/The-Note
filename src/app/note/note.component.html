@@ -1,8 +1,9 @@
 <app-loading [show]="loading" />
+
 <div class="card-container">
   <mat-card appearance="outlined">
     <mat-card-header>
-      <mat-card-title class="note-title">
+      <div class="note-title-wrapper">
         <input
           type="text"
           placeholder="Note Title"
@@ -10,29 +11,30 @@
           (input)="onNoteIdUpdate($event)"
           class="note-title-input"
         />
-      </mat-card-title>
+      </div>
     </mat-card-header>
+
     <mat-card-content>
       <div class="note-content">
         <textarea
-          type="text"
           placeholder="Note content"
           [value]="noteContent"
           (input)="onContentChange($event)"
           class="note-content-input"
           rows="10"
-          style="height: 55vh"
         ></textarea>
       </div>
     </mat-card-content>
+
     <mat-card-actions class="note-actions">
       <button mat-button [disabled]="disabledSave" (click)="onSave()">
         <mat-icon>add_to_drive</mat-icon>
         Save
       </button>
+
       <button
         mat-button
-        [disabled]="!(noteId && noteId !== '' && !newFile)"
+        [disabled]="!(noteId && noteId.trim() && !newFile)"
         (click)="onDelete()"
       >
         <mat-icon>delete</mat-icon>

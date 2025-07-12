@@ -25,3 +25,7 @@
   color: black !important;
   border: none !important;
 }
+
+:host {
+  background-color: transparent; /* Or inherit if needed */
+}

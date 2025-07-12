@@ -21,9 +21,10 @@ import { AuthService } from '../services/auth.service';
 })
 export class ToolbarComponent {
   profileName: any;
-  InDetail: BehaviorSubject<boolean> | undefined;
+  inDetail: BehaviorSubject<boolean> | undefined;
+  version: string = '1.0.4';
   constructor(private noteService: NoteService, private auth: AuthService) {
-    this.InDetail = this.noteService.IN_DETAILED;
+    this.inDetail = this.noteService.IN_DETAILED;
   }
 
   async ngOnInit() {

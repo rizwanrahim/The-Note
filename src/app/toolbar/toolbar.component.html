@@ -3,21 +3,21 @@
     <button
       mat-icon-button
       aria-label="Back"
-      *ngIf="InDetail | async"
+      *ngIf="inDetail | async"
       (click)="onBack()"
     >
       <mat-icon class="back-icon">arrow_back</mat-icon>
     </button>
     <span class="greeting">Hi, {{ profileName?.split(" ")[0] }}</span>
-    <span class="version">v1.0.0</span>
+    <span class="version">{{ version }}</span>
   </div>
 
   <ng-template #signInBlock>
-    <div class="signInBlock">
+    <div class="signin-block">
       <button mat-button class="sign-in-button" (click)="onSignIn()">
         Sign In
       </button>
-      <span class="version">v1.0.0</span>
+      <span class="version">{{ version }}</span>
     </div>
   </ng-template>
 </mat-toolbar>
