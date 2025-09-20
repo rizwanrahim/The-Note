@@ -25,4 +25,4 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         run: |
-          firebase deploy --project the-note-1e04b --only hosting:the-note-1e04b
+          firebase deploy --project the-note-463509 --only hosting:prod
