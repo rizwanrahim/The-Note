@@ -11,18 +11,20 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      - name: Firebase Deploy
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Authenticate with Service Account
         run: |
-          firebase deploy --project the-note-1e04b --only hosting:the-note-1e04b
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > ${HOME}/gcloud.json
+          export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/gcloud.json"
+
+      - name: Firebase Deploy
+        run: firebase deploy --project the-note-1e04b --only hosting:the-note-1e04b
