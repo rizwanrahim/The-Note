@@ -1,0 +1,13 @@
+{
+    "hosting": [
+        {
+            "site": "the-note-1e04b",
+            "public": "doc",
+            "ignore": [
+                "firebase.json",
+                "**/.*",
+                "**/node_modules/**"
+            ]
+        }
+    ]
+}
